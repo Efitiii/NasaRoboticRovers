@@ -10,7 +10,9 @@ import com.nasa.roboticRovers.service.Navigator;
 import com.nasa.roboticRovers.service.NavigatorImpl;
 import com.nasa.roboticRovers.utility.direction.DirectionFactory;
 import junit.framework.TestCase;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
@@ -21,6 +23,10 @@ import org.junit.runners.JUnit4;
 
 @RunWith(JUnit4.class)
 public class TestRoverNavigator extends TestCase {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
 
     /*
      ** Test's robot motion for input;
@@ -112,11 +118,11 @@ public class TestRoverNavigator extends TestCase {
 
     /*
      ** Test's robot motion to a location which is already occupied by another robot
-     *  if a space is occupied by another robot it checks if exception IllegalInputParameterException is thrown
+     *  if a space is occupied by another robot it checks then exception IllegalInputParameterException is thrown
      */
 
     @Test
-    public void testRoverNavigation_spaceAlreadyOccupied() {
+    public void testRoverNavigation_spaceAlreadyOccupied() throws IllegalInputParameterException, IllegalNavigationAreaException {
 
         /**** Initializing the plateau *******/
 
@@ -135,16 +141,47 @@ public class TestRoverNavigator extends TestCase {
         RoboticRover roboticRover = ((NavigatorImpl) navigator).getSquadOfRovers().get("1001");
         RoboticRover roboticRover2 = ((NavigatorImpl) navigator).getSquadOfRovers().get("1002");
 
+        thrown.expect(IllegalNavigationAreaException.class);
+        thrown.expectMessage(ExceptionMessages.ILLEGAL_NAVIGATION_INPUT_ANOTHERROVEREXIST.getMessage());
 
-        try {
-            navigator.moveRobot("L", roboticRover, plateau);
-            navigator.moveRobot("M", roboticRover, plateau);
+        navigator.moveRobot("L", roboticRover, plateau);
+        navigator.moveRobot("M", roboticRover, plateau);
 
 
-        } catch (Exception e) {
+    }
 
-            assertEquals(ExceptionMessages.ILLEGAL_NAVIGATION_INPUT_ANOTHERROVEREXIST.getMessage(), e.getMessage());
-        }
+
+    /*
+     ** Test's if a robot is triggered to move to a location which is out of the boundaries of the plateau
+     *  then throws IllegalNavigationAreaException
+     */
+
+    @Test
+    public void testRoverNavigation_outOfBoundary() throws IllegalInputParameterException, IllegalNavigationAreaException {
+
+        /**** Initializing the plateau *******/
+
+        Navigator navigator = new NavigatorImpl();
+
+        Integer plateau_size_x = 5;
+        Integer plateau_size_y = 5;
+
+        navigator.initializePlateau(plateau_size_x, plateau_size_y);
+        Plateau plateau = ((NavigatorImpl) navigator).getPlateau();
+
+        /****** Initializing and Defining multiple Robotic Rovers situated in the plateau *******/
+
+        navigator.initializeRovers(1, 2, "n", "1001");
+        RoboticRover roboticRover = ((NavigatorImpl) navigator).getSquadOfRovers().get("1001");
+
+        thrown.expect(IllegalNavigationAreaException.class);
+        thrown.expectMessage(ExceptionMessages.ILLEGAL_NAVIGATION_INPUT_OUTOFBORDER.getMessage());
+
+
+        navigator.moveRobot("L", roboticRover, plateau);
+        navigator.moveRobot("M", roboticRover, plateau);
+        navigator.moveRobot("M", roboticRover, plateau);
+        navigator.moveRobot("M", roboticRover, plateau);
 
 
     }
