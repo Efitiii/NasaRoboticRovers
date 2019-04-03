@@ -12,14 +12,14 @@ import com.nasa.roboticRovers.utility.EmptySpaceValidator;
 
 public interface Direction {
 
-    public Position triggerRobot (String in, Position position, Plateau plateau) throws IllegalNavigationAreaException;
+    public Position triggerRobot (String in, Position position, Plateau plateau, EmptySpaceValidator emptySpaceValidator) throws IllegalNavigationAreaException;
 
 
-    default public void checkForFreeSpaceAndAdd(Position currentPosition, Position nextPosition) throws IllegalNavigationAreaException {
+    default public void checkForFreeSpaceAndAdd(Position currentPosition, Position nextPosition, EmptySpaceValidator emptySpaceValidator) throws IllegalNavigationAreaException {
 
-        if (EmptySpaceValidator.checkFreeSpace(nextPosition)) {
-            EmptySpaceValidator.removeOldPosition(currentPosition);
-            EmptySpaceValidator.addNewPosition(nextPosition);
+        if (emptySpaceValidator.checkFreeSpace(nextPosition)) {
+            emptySpaceValidator.removeOldPosition(currentPosition);
+            emptySpaceValidator.addNewPosition(nextPosition);
         }
         else{
 

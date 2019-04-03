@@ -11,6 +11,7 @@ import java.util.Objects;
 
 /*
  * A model class Position that defines the x-coordinates, y-coordinates and the compass cardinal point
+ * To help with HashSet implementation equals() and hashcode() methods are overridden
  */
 
 

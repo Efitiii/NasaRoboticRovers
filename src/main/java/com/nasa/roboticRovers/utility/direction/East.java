@@ -4,6 +4,7 @@ import com.nasa.roboticRovers.exceptions.ExceptionMessages;
 import com.nasa.roboticRovers.exceptions.IllegalNavigationAreaException;
 import com.nasa.roboticRovers.model.Plateau;
 import com.nasa.roboticRovers.model.Position;
+import com.nasa.roboticRovers.utility.EmptySpaceValidator;
 
 /**
  * @author Efrem
@@ -13,7 +14,7 @@ public class East implements Direction {
 
 
     @Override
-    public Position triggerRobot(String in, Position position, Plateau plateau) throws IllegalNavigationAreaException {
+    public Position triggerRobot(String in, Position position, Plateau plateau, EmptySpaceValidator emptySpaceValidator) throws IllegalNavigationAreaException {
 
         if (!in.toLowerCase().equals("l") && !in.toLowerCase().equals("r") && !in.toLowerCase().equals("m")) {
             throw new IllegalNavigationAreaException(ExceptionMessages.ILLEGAL_INPUT_PARAMETER.getMessage());
@@ -39,7 +40,7 @@ public class East implements Direction {
 
                 tempPosition.setX_coord(x_coord + 1);
 
-                this.checkForFreeSpaceAndAdd(position, tempPosition);
+                this.checkForFreeSpaceAndAdd(position, tempPosition,emptySpaceValidator);
             } else {
                 throw new IllegalNavigationAreaException(ExceptionMessages.ILLEGAL_NAVIGATION_INPUT_OUTOFBORDER.getMessage());
             }

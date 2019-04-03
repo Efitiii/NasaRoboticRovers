@@ -24,10 +24,12 @@ public class NavigatorImpl implements Navigator {
     RoboticRover roboticRover;
 
     Map<String, RoboticRover> squadOfRovers;
+    EmptySpaceValidator emptySpaceValidator;
 
     public NavigatorImpl() {
         squadOfRovers = new HashMap<>();
         plateau = null;
+        emptySpaceValidator= new EmptySpaceValidator();
     }
 
     /*
@@ -52,7 +54,7 @@ public class NavigatorImpl implements Navigator {
             Position position = new Position(x_coord, y_coord, cardinal_direction);
             RoboticRover roboticRover = new RoboticRover(position, id);
             squadOfRovers.put(id, roboticRover);
-            EmptySpaceValidator.addNewPosition(roboticRover.getCurrentPosition());
+            emptySpaceValidator.addNewPosition(roboticRover.getCurrentPosition());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -75,7 +77,7 @@ public class NavigatorImpl implements Navigator {
         Direction currentDirection = roboticRover.getCurrentPosition().getCardinal_point();
         Position currentPosition = roboticRover.getCurrentPosition();
 
-        Position newPosition= currentDirection.triggerRobot(action.toLowerCase(), currentPosition, plateau);
+        Position newPosition= currentDirection.triggerRobot(action.toLowerCase(), currentPosition, plateau,emptySpaceValidator);
         roboticRover.setCurrentPosition(newPosition);
     }
 

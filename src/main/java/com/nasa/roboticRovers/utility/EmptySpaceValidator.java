@@ -16,15 +16,15 @@ import java.util.Set;
 
 public class EmptySpaceValidator {
 
-    public static Set<Position> occupiedPositions= new HashSet<Position>();
+    public Set<Position> occupiedPositions= new HashSet<Position>();
 
 
 
-    public static boolean checkFreeSpace(Position newPosition){
+    public boolean checkFreeSpace(Position newPosition){
 
         boolean freeSpace=false;
 
-        if(!EmptySpaceValidator.occupiedPositions.contains(newPosition)) {
+        if(!this.occupiedPositions.contains(newPosition)) {
 
             freeSpace=true;
         }
@@ -33,21 +33,21 @@ public class EmptySpaceValidator {
 
     }
 
-    public static void removeOldPosition(Position currentPosition){
+    public void removeOldPosition(Position currentPosition){
 
 
-        EmptySpaceValidator.occupiedPositions.remove(currentPosition);
+        this.occupiedPositions.remove(currentPosition);
 
 
     }
 
-    public static void addNewPosition(Position newPosition){
+    public  void addNewPosition(Position newPosition){
 
         Integer x_coord= newPosition.getX_coord();
         Integer y_coord= newPosition.getY_coord();
         Direction direction= newPosition.getCardinal_point();
 
-        EmptySpaceValidator.occupiedPositions.add(new Position(x_coord,y_coord,direction));
+        this.occupiedPositions.add(new Position(x_coord,y_coord,direction));
 
 
     }
