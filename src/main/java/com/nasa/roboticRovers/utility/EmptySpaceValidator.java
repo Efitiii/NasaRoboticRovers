@@ -11,7 +11,7 @@ import java.util.Set;
  */
 
 /* Utility class that checks if the robot's direction of motion is valid;
-   Checks if the location is already occupied by another robot.
+   ~ Checks if the location is already occupied by another robot.
 */
 
 public class EmptySpaceValidator {

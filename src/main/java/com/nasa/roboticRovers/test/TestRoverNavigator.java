@@ -24,9 +24,9 @@ public class TestRoverNavigator extends TestCase {
 
     /*
      ** Test's robot motion for input;
-     *  initial position: 1 2 N
-         motion pattern: LMLMLMLMM
-         expected output: 1 3 N
+     *  ~ initial position: 1 2 N
+        ~ motion pattern: LMLMLMLMM
+        ~ expected output: 1 3 N
      */
 
     @Test
@@ -68,9 +68,9 @@ public class TestRoverNavigator extends TestCase {
 
     /*
      ** Test's robot motion for input;
-     *  initial position: 3 3 E
-         motion pattern: MMRMMRMRRM
-         expected output: 5 1 E
+     *  ~ initial position: 3 3 E
+        ~ motion pattern: MMRMMRMRRM
+        ~ expected output: 5 1 E
      */
 
     @Test
@@ -112,7 +112,7 @@ public class TestRoverNavigator extends TestCase {
 
     /*
      ** Test's robot motion to a location which is already occupied by another robot
-     *  throws exception IllegalInputParameterException
+     *  if a space is occupied by another robot it checks if exception IllegalInputParameterException is thrown
      */
 
     @Test

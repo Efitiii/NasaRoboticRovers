@@ -41,7 +41,7 @@ public class NavigatorImpl implements Navigator {
     }
 
     /*
-     ** initializeRover() initializes the rovers position and adds them to the squadRovers
+     ** initializeRover() initializes the rovers position and adds the rover robot to the Map data-structure of squadRovers
      */
 
     @Override
@@ -61,7 +61,7 @@ public class NavigatorImpl implements Navigator {
 
     /*
      ** moveRobot() moves a robot based on the action provided
-     *  synchronized to assure each robot's motion to end before another robot's motion is initiated
+     *  ~ This function is also synchronized to assure each robot's motion to finish before another robot's motion is initiated
      */
 
     @Override

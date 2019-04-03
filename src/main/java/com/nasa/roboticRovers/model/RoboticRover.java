@@ -6,7 +6,7 @@ package com.nasa.roboticRovers.model;
 
 /*
  * A model class RoboticRover that represents a robotic rover,
- * each robotic rover has a unique id and the current position it is situated
+ * ~ Each robotic rover has a unique id and the current position it is located
  */
 
 
